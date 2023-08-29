@@ -1,11 +1,17 @@
 const loadPhone = async (searchText, isShowALL) => {
+  spinner(true); // Show the spinner immediately
+
   const response = await fetch(
     `https://openapi.programming-hero.com/api/phones?search=${searchText}`
   );
   const data = await response.json();
   const phones = data.data;
-  //   console.log(phones);
-  displayPhones(phones, isShowALL);
+
+  // Add a delay of 1000 milliseconds (1 second)
+  setTimeout(() => {
+    displayPhones(phones, isShowALL);
+    spinner(false); // Hide the spinner after displaying phones
+  }, 2500);
 };
 
 // loadPhone();
@@ -42,7 +48,6 @@ const displayPhones = (phones, isShowALL) => {
     phoneCard.innerHTML = cardTemplate;
     phoneContainer.appendChild(phoneCard);
   });
-  spinner(false);
 };
 // Search
 const handleSearch = (isShowALL) => {
